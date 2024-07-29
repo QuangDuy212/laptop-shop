@@ -1,5 +1,7 @@
 package vn.hoidanit.laptopshop.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +23,8 @@ public class UserController {
 
     @RequestMapping("/")
     public String getHomePage(Model model) {
+        List<User> arrUsers = this.userService.getAllUsersByEmail("duy@gmail.com");
+        System.out.println(arrUsers);
         model.addAttribute("hoidanit", "Hoi dan it");
         return "hello";
     }
@@ -32,9 +36,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/admin/user/create", method = RequestMethod.POST)
-    public String createUserPage(Model model, @ModelAttribute("newUser") User hoidanit) {
-        System.out.println("Run here" + hoidanit);
-        this.userService.handleSaveUser(hoidanit);
+    public String createUserPage(Model model, @ModelAttribute("newUser") User user) {
+        System.out.println("Run here" + user);
+        this.userService.handleSaveUser(user);
         return "hello";
     }
 }
