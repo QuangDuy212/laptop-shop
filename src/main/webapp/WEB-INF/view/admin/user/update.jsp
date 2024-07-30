@@ -49,7 +49,7 @@
                                     <form:input type="text" class="form-control" path="address" />
                                 </div>
 
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="submit" class="btn btn-warning">Update</button>
                             </form:form>
                         </div>
 
