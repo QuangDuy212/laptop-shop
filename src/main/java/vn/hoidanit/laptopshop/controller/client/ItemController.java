@@ -5,8 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import vn.hoidanit.laptopshop.domain.User;
-
 @Controller
 public class ItemController {
     @GetMapping("/product/{id}")
