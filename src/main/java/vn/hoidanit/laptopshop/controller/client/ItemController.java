@@ -11,8 +11,6 @@ import vn.hoidanit.laptopshop.domain.User;
 public class ItemController {
     @GetMapping("/product/{id}")
     public String getProductDetailPage(Model model, @PathVariable long id) {
-        model.addAttribute("id", id);
-        model.addAttribute("newUser", new User());
         return "client/product/detail";
     }
 }
