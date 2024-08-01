@@ -102,8 +102,10 @@ public class ProductController {
             currentProduct.setQuantity(product.getQuantity());
             currentProduct.setFactory(product.getFactory());
             currentProduct.setTarget(product.getTarget());
-            String image = this.uploadService.handleSaveUploadFile(file, "product");
-            currentProduct.setImage(image);
+            if (!file.isEmpty()) {
+                String image = this.uploadService.handleSaveUploadFile(file, "product");
+                currentProduct.setImage(image);
+            }
             this.productService.handleSaveProduct(currentProduct);
         }
         return "redirect:/admin/product";

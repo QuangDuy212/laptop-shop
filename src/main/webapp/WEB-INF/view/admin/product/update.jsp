@@ -16,6 +16,12 @@
                 <script>
                     $(document).ready(() => {
                         const productFile = $("#productFile");
+                        const productImg = "${newProduct.image}";
+                        if (productImg) {
+                            const imgURL = "/images/product/" + productImg;
+                            $("#productPreview").attr("src", imgURL);
+                            $("#productPreview").css({ "display": "block" });
+                        }
                         productFile.change(function (e) {
                             const imgURL = URL.createObjectURL(e.target.files[0]);
                             $("#productPreview").attr("src", imgURL);
@@ -132,8 +138,7 @@
                                                         accept=".png, .jpg, .jpeg" name="productFileName" />
                                                 </div>
                                                 <div class="col-12 mb-3">
-                                                    <img style="max-height: 250px; display: block;" alt="avatar preview"
-                                                        src='<c:url value="/images/product/${newProduct.image}"></c:url>'
+                                                    <img style="max-height: 250px; display: none;" alt="product preview"
                                                         id="productPreview" />
                                                 </div>
                                                 <div class="col-12 mb-5">
