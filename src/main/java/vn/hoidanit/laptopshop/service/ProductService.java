@@ -23,4 +23,13 @@ public class ProductService {
         Product productSave = this.productRepository.save(product);
         return productSave;
     }
+
+    public Product getProductById(long id) {
+        Product product = this.productRepository.findTop1ById(id);
+        return product;
+    }
+
+    public void deleteAProduct(long id) {
+        this.productRepository.deleteById(id);
+    }
 }
