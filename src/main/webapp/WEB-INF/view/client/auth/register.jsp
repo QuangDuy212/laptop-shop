@@ -10,7 +10,7 @@
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
                 <meta name="description" content="" />
                 <meta name="author" content="" />
-                <title>Register - SB Admin</title>
+                <title>Register - Laptopshop</title>
                 <link href="/css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
             </head>
@@ -28,53 +28,58 @@
                                             </div>
                                             <div class="card-body">
                                                 <form:form method="post" action="/register"
-                                                    enctype="multipart/form-data" modelAttribute="newProduct">
+                                                    modelAttribute="registerUser">
                                                     <div class="row mb-3">
                                                         <div class="col-md-6">
                                                             <div class="form-floating mb-3 mb-md-0">
-                                                                <input class="form-control" id="inputFirstName"
-                                                                    type="text" placeholder="Enter your first name" />
+                                                                <form:input class="form-control" type="text"
+                                                                    placeholder="Enter your first name"
+                                                                    path="firstName" />
                                                                 <label for="inputFirstName">First name</label>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-floating">
-                                                                <input class="form-control" id="inputLastName"
-                                                                    type="text" placeholder="Enter your last name" />
+                                                                <form:input class="form-control" type="text"
+                                                                    placeholder="Enter your last name"
+                                                                    path="lastName" />
                                                                 <label for="inputLastName">Last name</label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="form-floating mb-3">
-                                                        <input class="form-control" id="inputEmail" type="email"
-                                                            placeholder="name@example.com" />
-                                                        <label for="inputEmail">Email address</label>
+                                                        <form:input class="form-control" type="email"
+                                                            placeholder="name@example.com" path="email" />
+                                                        <label>Email address</label>
                                                     </div>
                                                     <div class="row mb-3">
                                                         <div class="col-md-6">
                                                             <div class="form-floating mb-3 mb-md-0">
-                                                                <input class="form-control" id="inputPassword"
-                                                                    type="password" placeholder="Create a password" />
-                                                                <label for="inputPassword">Password</label>
+                                                                <form:input class="form-control" type="password"
+                                                                    placeholder="Create a password" path="password" />
+                                                                <label>Password</label>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="form-floating mb-3 mb-md-0">
-                                                                <input class="form-control" id="inputPasswordConfirm"
-                                                                    type="password" placeholder="Confirm password" />
-                                                                <label for="inputPasswordConfirm">Confirm
-                                                                    Password</label>
+                                                                <form:input class="form-control" type="password"
+                                                                    placeholder="Confirm password"
+                                                                    path="confirmPassword" />
+                                                                <label>Confirm Password</label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="mt-4 mb-0">
-                                                        <div class="d-grid"><a class="btn btn-primary btn-block"
-                                                                href="login.html">Create Account</a></div>
+                                                        <div class="d-grid">
+                                                            <button class="btn btn-primary btn-block">
+                                                                Create Account
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 </form:form>
                                             </div>
                                             <div class="card-footer text-center py-3">
-                                                <div class="small"><a href="login.html">Have an account? Go to login</a>
+                                                <div class="small"><a href="/login">Have an account? Go to login</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -83,6 +88,7 @@
                             </div>
                         </main>
                     </div>
+
                 </div>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
                     crossorigin="anonymous"></script>
