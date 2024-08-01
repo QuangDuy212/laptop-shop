@@ -71,10 +71,11 @@ public class UserController {
             @RequestParam("hoidanitFile") MultipartFile file) {
 
         // validate
-        List<FieldError> errors = newUserBindingResult.getFieldErrors();
-        for (FieldError error : errors) {
-            System.out.println(">>>" + error.getField() + " - " + error.getDefaultMessage());
-        }
+        // List<FieldError> errors = newUserBindingResult.getFieldErrors();
+        // for (FieldError error : errors) {
+        // System.out.println(">>>" + error.getField() + " - " +
+        // error.getDefaultMessage());
+        // }
         if (newUserBindingResult.hasErrors()) {
             return "/admin/user/create";
         }
