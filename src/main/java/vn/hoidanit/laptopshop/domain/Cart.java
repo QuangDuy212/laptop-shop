@@ -68,4 +68,7 @@ public class Cart {
         this.cartDetails = cartDetails;
     }
 
+    public Cart() {
+    }
+
 }
