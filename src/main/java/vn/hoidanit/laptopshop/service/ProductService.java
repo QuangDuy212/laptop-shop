@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpSession;
 import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.CartDetail;
 import vn.hoidanit.laptopshop.domain.Product;
@@ -47,7 +48,7 @@ public class ProductService {
         this.productRepository.deleteById(id);
     }
 
-    public void handleAddProductToCart(String email, long productId) {
+    public void handleAddProductToCart(String email, long productId, HttpSession session) {
         User user = this.userService.getUserByEmail(email);
         if (user != null) {
             // check user have cart? not -> add new
@@ -56,7 +57,7 @@ public class ProductService {
                 // add new cart
                 Cart otherCart = new Cart();
                 otherCart.setUser(user);
-                otherCart.setSum(1);
+                otherCart.setSum(0);
                 cart = this.cartRespository.save(otherCart);
             }
 
@@ -65,13 +66,24 @@ public class ProductService {
             Optional<Product> productOptional = this.productRepository.findTop1ById(productId);
             if (productOptional.isPresent()) {
                 Product realProduct = productOptional.get();
-                CartDetail cd = new CartDetail();
-                cd.setCart(cart);
-                cd.setProduct(realProduct);
-                cd.setPrice(realProduct.getPrice());
-                cd.setQuantity(1);
 
-                this.cartDetailRespository.save(cd);
+                CartDetail oldDetail = this.cartDetailRespository.findByCartAndProduct(cart, realProduct);
+                if (oldDetail == null) {
+                    CartDetail cd = new CartDetail();
+                    cd.setCart(cart);
+                    cd.setProduct(realProduct);
+                    cd.setPrice(realProduct.getPrice());
+                    cd.setQuantity(1);
+
+                    int sum = cart.getSum() + 1;
+                    this.cartDetailRespository.save(cd);
+                    cart.setSum(sum);
+                    this.cartRespository.save(cart);
+                    session.setAttribute("sum", sum);
+                } else {
+                    oldDetail.setQuantity(oldDetail.getQuantity() + 1);
+                    this.cartDetailRespository.save(oldDetail);
+                }
             }
         }
     }
