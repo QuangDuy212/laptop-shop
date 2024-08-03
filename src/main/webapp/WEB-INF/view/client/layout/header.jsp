@@ -14,7 +14,7 @@
                     <div class="collapse navbar-collapse bg-white justify-content-between mx-5" id="navbarCollapse">
                         <div class="navbar-nav">
                             <a href="/" class="nav-item nav-link active">Trang Chủ</a>
-                            <a href="/products" class="nav-item nav-link">Sản Phẩm</a>
+                            <a href="/product/1" class="nav-item nav-link">Sản Phẩm</a>
 
                         </div>
                         <div class="d-flex m-3 me-0">
