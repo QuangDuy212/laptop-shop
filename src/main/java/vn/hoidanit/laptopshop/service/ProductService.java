@@ -170,4 +170,10 @@ public class ProductService {
             }
         }
     }
+
+    public long countProducts() {
+        List<Product> products = this.getAllProducts();
+        long count = products.size();
+        return count;
+    }
 }
