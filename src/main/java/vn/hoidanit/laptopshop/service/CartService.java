@@ -18,4 +18,8 @@ public class CartService {
         return this.cartRespository.findByUser(user);
     }
 
+    public void deleteCartById(long id) {
+        this.cartRespository.deleteById(id);
+    }
+
 }

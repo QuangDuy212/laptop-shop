@@ -1,6 +1,7 @@
 package vn.hoidanit.laptopshop.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,14 @@ public class CartDetailService {
 
     public List<CartDetail> getCartDetailsByCart(Cart cart) {
         return this.cartDetailRespository.findByCart(cart);
+    }
+
+    public Optional<CartDetail> getCartDetailById(long id) {
+        return this.cartDetailRespository.findById(id);
+    }
+
+    public void deleteCartDetailById(long id) {
+        this.cartDetailRespository.deleteById(id);
     }
 
 }

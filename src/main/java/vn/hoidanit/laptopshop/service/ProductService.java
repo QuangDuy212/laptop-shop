@@ -21,13 +21,18 @@ public class ProductService {
     private final CartRespository cartRespository;
     private final CartDetailRespository cartDetailRespository;
     private final UserService userService;
+    private final CartService cartService;
+    private final CartDetailService cartDetailService;
 
     public ProductService(ProductRepository productRepository, CartRespository cartRespository,
-            CartDetailRespository cartDetailRespository, UserService userService) {
+            CartDetailRespository cartDetailRespository, UserService userService, CartService cartService,
+            CartDetailService cartDetailService) {
         this.productRepository = productRepository;
         this.cartRespository = cartRespository;
         this.cartDetailRespository = cartDetailRespository;
         this.userService = userService;
+        this.cartService = cartService;
+        this.cartDetailService = cartDetailService;
     }
 
     public List<Product> getAllProducts() {
@@ -84,6 +89,24 @@ public class ProductService {
                     oldDetail.setQuantity(oldDetail.getQuantity() + 1);
                     this.cartDetailRespository.save(oldDetail);
                 }
+            }
+        }
+    }
+
+    public void handleRemoveCartDetail(long cartDetailId, HttpSession session) {
+        Optional<CartDetail> cartDetail = this.cartDetailService.getCartDetailById(cartDetailId);
+        if (cartDetail.isPresent()) {
+            Cart cart = cartDetail.get().getCart();
+            long cartId = cart.getId();
+            this.cartDetailService.deleteCartDetailById(cartDetailId);
+            if (cart.getSum() > 1) {
+                int sum = cart.getSum() - 1;
+                cart.setSum(sum);
+                session.setAttribute("sum", sum);
+                this.cartRespository.save(cart);
+            } else {
+                session.setAttribute("sum", 0);
+                this.cartService.deleteCartById(cartId);
             }
         }
     }
