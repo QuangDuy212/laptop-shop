@@ -116,8 +116,23 @@ public class ItemController {
             @RequestParam("receiverAddress") String receiverAddress,
             @RequestParam("receiverPhone") String receiverPhone) {
         HttpSession session = request.getSession(false);
+        User user = new User();
+        long idUser = (long) session.getAttribute("id");
+        user.setId(idUser);
+        Cart cart = this.cartService.getCartByUser(user);
+        List<CartDetail> cartDetails = cart != null ? cart.getCartDetails() : new ArrayList<CartDetail>();
 
-        return "redirect:/";
+        double totalPrice = 0;
+        for (CartDetail cd : cartDetails) {
+            totalPrice += cd.getPrice() * cd.getQuantity();
+        }
+        this.productService.handlePlaceOrder(user, session, receiverName, receiverAddress, receiverPhone, totalPrice);
+        return "redirect:/thanks";
+    }
+
+    @GetMapping("/thanks")
+    public String getThanksPage(Model model) {
+        return "client/cart/thanks";
     }
 
 }

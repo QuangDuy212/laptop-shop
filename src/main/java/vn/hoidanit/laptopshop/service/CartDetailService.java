@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 
 import vn.hoidanit.laptopshop.domain.Cart;
 import vn.hoidanit.laptopshop.domain.CartDetail;
-import vn.hoidanit.laptopshop.repository.CartDetailRespository;
+import vn.hoidanit.laptopshop.repository.CartDetailRepository;
 
 @Service
 public class CartDetailService {
-    private final CartDetailRespository cartDetailRespository;
+    private final CartDetailRepository cartDetailRespository;
 
-    public CartDetailService(CartDetailRespository cartDetailRespository) {
+    public CartDetailService(CartDetailRepository cartDetailRespository) {
         this.cartDetailRespository = cartDetailRespository;
     }
 
