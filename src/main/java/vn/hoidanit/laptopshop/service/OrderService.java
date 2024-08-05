@@ -57,4 +57,8 @@ public class OrderService {
         long count = orders.size();
         return count;
     }
+
+    public List<Order> fetchOrderByUser(User user) {
+        return this.orderRepository.findAllByUser(user);
+    }
 }
