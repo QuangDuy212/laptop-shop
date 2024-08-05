@@ -2,6 +2,7 @@ package vn.hoidanit.laptopshop.controller.client;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +26,7 @@ import vn.hoidanit.laptopshop.service.OrderService;
 import vn.hoidanit.laptopshop.service.ProductService;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -36,6 +38,7 @@ public class HomePageController {
     private final UserService userService;
     private final OrderService orderService;
     private final PasswordEncoder passwordEncoder;
+    private final int limitItemInPage = 6;
 
     public HomePageController(ProductService productService, UserService userService, OrderService orderService,
             PasswordEncoder passwordEncoder) {
@@ -97,6 +100,32 @@ public class HomePageController {
         List<Order> orders = this.orderService.fetchOrderByUser(user);
         model.addAttribute("orders", orders);
         return "client/cart/order-history";
+    }
+
+    @GetMapping("/products")
+    public String getAllProductPage(Model model, @RequestParam("page") Optional<String> pageOptional) {
+        int page = 1;
+        try {
+            if (pageOptional.isPresent()) {
+                page = Integer.parseInt(pageOptional.get());
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        // page = 1 limit = 10
+        Pageable pageable = PageRequest.of(page - 1, limitItemInPage);
+        // duoi db co 10 rows. count = 100 => chia limit = 10 pages offset = limit *
+        // (page - 1)
+        Page<Product> products = this.productService.getAllProducts(pageable);
+        List<Product> listProducts = products.getContent();
+
+        // data
+        model.addAttribute("products", listProducts);
+
+        // pagination
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", products.getTotalPages());
+        return "client/products/show";
     }
 
 }

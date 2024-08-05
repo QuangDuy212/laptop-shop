@@ -64,8 +64,7 @@
                                 <div class="col-lg-8 text-end">
                                     <ul class="nav nav-pills d-inline-flex text-center mb-5">
                                         <li class="nav-item">
-                                            <a class="d-flex m-2 py-2 bg-light rounded-pill active"
-                                                data-bs-toggle="pill" href="#tab-1">
+                                            <a class="d-flex m-2 py-2 bg-light rounded-pill active" href="/products">
                                                 <span class="text-dark" style="width: 130px;">All Products</span>
                                             </a>
                                         </li>
@@ -101,7 +100,7 @@
                                                                         ${product.shortDesc}</p>
                                                                 </div>
                                                                 <div
-                                                                    class="d-flex justify-content-center align-items-center flex-lg-wrap">
+                                                                    class="d-flex justify-content-center align-items-center flex-lg-wrap flex-column">
                                                                     <p class="text-dark fs-5 fw-bold mb-0"
                                                                         style="font-size: 15px; text-align: center; width: 100%;">
                                                                         <fmt:formatNumber type="number"
