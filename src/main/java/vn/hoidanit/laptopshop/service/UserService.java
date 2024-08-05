@@ -63,8 +63,6 @@ public class UserService {
     }
 
     public long countUsers() {
-        List<User> users = this.getAllUsers();
-        long count = users.size();
-        return count;
+        return this.userRepository.count();
     }
 }

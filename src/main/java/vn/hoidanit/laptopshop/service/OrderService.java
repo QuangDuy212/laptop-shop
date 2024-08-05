@@ -53,9 +53,7 @@ public class OrderService {
     }
 
     public long countOrders() {
-        List<Order> orders = this.getAllOrders();
-        long count = orders.size();
-        return count;
+        return this.orderRepository.count();
     }
 
     public List<Order> fetchOrderByUser(User user) {
