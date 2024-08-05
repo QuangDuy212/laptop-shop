@@ -35,12 +35,18 @@ public class ProductController {
     @GetMapping("/admin/product")
     public String getDashboard(Model model, @RequestParam("page") int page) {
         // page = 1 limit = 10
-        Pageable pageable = PageRequest.of(page - 1, 4);
+        Pageable pageable = PageRequest.of(page - 1, 2);
         // duoi db co 10 rows. count = 100 => chia limit = 10 pages offset = limit *
         // (page - 1)
         Page<Product> products = this.productService.getAllProducts(pageable);
         List<Product> listProducts = products.getContent();
+
+        // data
         model.addAttribute("products", listProducts);
+
+        // pagination
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", products.getTotalPages());
         return "admin/product/show";
     }
 
