@@ -3,12 +3,16 @@ package vn.hoidanit.laptopshop.controller.admin;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.validation.Valid;
 
@@ -24,6 +28,7 @@ import vn.hoidanit.laptopshop.service.OrderService;
 public class OrderController {
     private final OrderService orderService;
     private final OrderDetailService orderDetailService;
+    private final int totalPages = 5;
 
     public OrderController(OrderService orderService, OrderDetailService orderDetailService) {
         this.orderService = orderService;
@@ -31,9 +36,24 @@ public class OrderController {
     }
 
     @GetMapping("/admin/order")
-    public String getOrdersPage(Model model) {
-        List<Order> orders = this.orderService.getAllOrders();
-        model.addAttribute("orders", orders);
+    public String getOrdersPage(Model model, @RequestParam("page") Optional<String> pageOptional) {
+        int page = 1;
+        try {
+            if (pageOptional.isPresent()) {
+                page = Integer.parseInt(pageOptional.get());
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        // pagination
+        Pageable pageable = PageRequest.of(page - 1, totalPages);
+        Page<Order> orders = this.orderService.getAllOrders(pageable);
+        List<Order> listOrders = orders.getContent();
+        // data
+        model.addAttribute("orders", listOrders);
+        // pagination
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", orders.getTotalPages());
         return "admin/order/show";
     }
 

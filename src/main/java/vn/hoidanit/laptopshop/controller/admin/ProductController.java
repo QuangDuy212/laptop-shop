@@ -1,6 +1,7 @@
 package vn.hoidanit.laptopshop.controller.admin;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +27,7 @@ import vn.hoidanit.laptopshop.service.UploadService;
 public class ProductController {
     private final UploadService uploadService;
     private final ProductService productService;
+    private final int totalPages = 5;
 
     public ProductController(UploadService uploadService, ProductService productService) {
         this.uploadService = uploadService;
@@ -33,9 +35,17 @@ public class ProductController {
     }
 
     @GetMapping("/admin/product")
-    public String getDashboard(Model model, @RequestParam("page") int page) {
+    public String getDashboard(Model model, @RequestParam("page") Optional<String> pageOptional) {
+        int page = 1;
+        try {
+            if (pageOptional.isPresent()) {
+                page = Integer.parseInt(pageOptional.get());
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         // page = 1 limit = 10
-        Pageable pageable = PageRequest.of(page - 1, 2);
+        Pageable pageable = PageRequest.of(page - 1, totalPages);
         // duoi db co 10 rows. count = 100 => chia limit = 10 pages offset = limit *
         // (page - 1)
         Page<Product> products = this.productService.getAllProducts(pageable);
