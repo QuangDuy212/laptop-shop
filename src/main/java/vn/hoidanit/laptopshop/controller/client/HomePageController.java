@@ -110,9 +110,8 @@ public class HomePageController {
             @RequestParam("min-price") Optional<String> minOptional,
             @RequestParam("max-price") Optional<String> maxOptional,
             @RequestParam("factory") Optional<String> factoryOptional,
-            @RequestParam("price") Optional<String> priceOptional
-
-    ) {
+            @RequestParam("price") Optional<String> priceOptional,
+            @RequestParam("sort") Optional<String> sortOptional) {
         int page = 1;
         try {
             if (pageOptional.isPresent()) {
