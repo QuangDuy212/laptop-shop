@@ -21,6 +21,7 @@ import vn.hoidanit.laptopshop.repository.CartRepository;
 import vn.hoidanit.laptopshop.repository.OrderDetailRepository;
 import vn.hoidanit.laptopshop.repository.OrderRepository;
 import vn.hoidanit.laptopshop.repository.ProductRepository;
+import vn.hoidanit.laptopshop.service.specification.ProductSpecs;
 
 @Service
 public class ProductService {
@@ -47,12 +48,12 @@ public class ProductService {
         this.cartDetailService = cartDetailService;
     }
 
-    private Specification<Product> nameLike(String name) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(Product_.NAME), "%" + name + "%");
+    public Page<Product> getAllProducts(Pageable page) {
+        return this.productRepository.findAll(page);
     }
 
-    public Page<Product> getAllProducts(Pageable page, String name) {
-        return this.productRepository.findAll(this.nameLike(name), page);
+    public Page<Product> getAllProductsWithSpec(Pageable page, String name) {
+        return this.productRepository.findAll(ProductSpecs.nameLike(name), page);
     }
 
     public Product handleSaveProduct(Product product) {
