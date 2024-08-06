@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.util.Pair;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -105,7 +106,12 @@ public class HomePageController {
     @GetMapping("/products")
     public String getAllProductPage(Model model,
             @RequestParam("page") Optional<String> pageOptional,
-            @RequestParam("name") Optional<String> nameOptional) {
+            @RequestParam("name") Optional<String> nameOptional,
+            @RequestParam("price") Optional<String> priceOptional,
+            @RequestParam("factory") Optional<List<String>> factoryOptional,
+            @RequestParam("min-price") Optional<Double> minPriceOptional,
+            @RequestParam("max-price") Optional<Double> maxPriceOptional,
+            @RequestParam("target") Optional<String> targetOptional) {
         int page = 1;
         try {
             if (pageOptional.isPresent()) {
@@ -116,11 +122,26 @@ public class HomePageController {
         }
 
         String name = nameOptional.isPresent() ? nameOptional.get() : "";
+        String target = targetOptional.isPresent() ? targetOptional.get() : "";
+        List<Pair<Double, Double>> pricePair = new ArrayList<Pair<Double, Double>>();
+        if (priceOptional.isPresent()) {
+            String[] parts = priceOptional.get().split(",");
+            for (String part : parts) {
+                String[] listMoneys = part.split("-");
+                double start = Double.parseDouble(listMoneys[0]) * 1000000;
+                String[] v = listMoneys[1].split("trieu");
+                double end = Double.parseDouble(v[0]) * 1000000;
+                pricePair.add(Pair.of(start, end));
+            }
+        }
+        List<String> factory = factoryOptional.isPresent() ? factoryOptional.get() : new ArrayList<String>();
+        double minPrice = minPriceOptional.isPresent() ? minPriceOptional.get() : 0;
+        double maxPrice = maxPriceOptional.isPresent() ? maxPriceOptional.get() : Double.MAX_VALUE;
         // page = 1 limit = 10
         Pageable pageable = PageRequest.of(page - 1, limitItemInPage);
         // duoi db co 10 rows. count = 100 => chia limit = 10 pages offset = limit *
         // (page - 1)
-        Page<Product> products = this.productService.getAllProductsWithSpec(pageable, name);
+        Page<Product> products = this.productService.getAllProductsWithBetweenPriceOr(pageable, pricePair);
         List<Product> listProducts = products.getContent();
 
         // data

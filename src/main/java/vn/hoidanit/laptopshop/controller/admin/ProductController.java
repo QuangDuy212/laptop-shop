@@ -35,7 +35,8 @@ public class ProductController {
     }
 
     @GetMapping("/admin/product")
-    public String getDashboard(Model model, @RequestParam("page") Optional<String> pageOptional) {
+    public String getDashboard(Model model,
+            @RequestParam("page") Optional<String> pageOptional) {
         int page = 1;
         try {
             if (pageOptional.isPresent()) {

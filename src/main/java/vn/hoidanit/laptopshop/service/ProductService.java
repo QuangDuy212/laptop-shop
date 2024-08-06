@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 
 import jakarta.servlet.http.HttpSession;
@@ -54,6 +55,30 @@ public class ProductService {
 
     public Page<Product> getAllProductsWithSpec(Pageable page, String name) {
         return this.productRepository.findAll(ProductSpecs.nameLike(name), page);
+    }
+
+    public Page<Product> getAllProductsGreaterOrEqual(Pageable page, double minPrice) {
+        return this.productRepository.findAll(ProductSpecs.priceGreaterThanOrEqualTo(minPrice), page);
+    }
+
+    public Page<Product> getAllProductsLessOrEqual(Pageable page, double maxPrice) {
+        return this.productRepository.findAll(ProductSpecs.priceLessThanOrEqualTo(maxPrice), page);
+    }
+
+    public Page<Product> getAllProductsWithTarget(Pageable page, String name) {
+        return this.productRepository.findAll(ProductSpecs.targetLike(name), page);
+    }
+
+    public Page<Product> getAllProductsWithInFactory(Pageable page, List<String> name) {
+        return this.productRepository.findAll(ProductSpecs.factoryIn(name), page);
+    }
+
+    public Page<Product> getAllProductsWithBetweenPrice(Pageable page, double start, double end) {
+        return this.productRepository.findAll(ProductSpecs.priceBetween(start, end), page);
+    }
+
+    public Page<Product> getAllProductsWithBetweenPriceOr(Pageable page, List<Pair<Double, Double>> listMoney) {
+        return this.productRepository.findAll(ProductSpecs.priceBetweenOr(listMoney), page);
     }
 
     public Product handleSaveProduct(Product product) {
