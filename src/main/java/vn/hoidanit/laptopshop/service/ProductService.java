@@ -128,6 +128,10 @@ public class ProductService {
 
             // Set the appropriate min and max based on the price range string
             switch (p) {
+                case "duoi-10-trieu":
+                    min = 0;
+                    max = 10000000;
+                    break;
                 case "10-15-trieu":
                     min = 10000000;
                     max = 15000000;
