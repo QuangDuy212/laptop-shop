@@ -159,7 +159,7 @@
 
                                                 <div class="form-check form-check-inline">
                                                     <input class="form-check-input" type="checkbox" id="price-5"
-                                                        value="tren-20-triệu">
+                                                        value="tren-20-trieu">
                                                     <label class="form-check-label" for="price-5">Trên 20 triệu</label>
                                                 </div>
                                             </div>
@@ -196,55 +196,62 @@
                                     </div>
                                     <div class="col-12 col-md-8 text-center">
                                         <div class="row g-4">
+                                            <c:if test="${totalPages == 0}">
+                                                <div>Không có sản phẩm nào</div>
+                                            </c:if>
 
-                                            <c:forEach var="product" items="${products}">
-                                                <div class="col-md-6 col-lg-4">
-                                                    <div class="rounded position-relative fruite-item">
-                                                        <div class="fruite-img">
-                                                            <img src="/images/product/${product.image}"
-                                                                style="height: 220px;"
-                                                                class="img-fluid w-100 rounded-top" alt="">
-                                                        </div>
-                                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                                                            style="top: 10px; left: 10px;">Laptop
-                                                        </div>
-                                                        <div
-                                                            class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                            <div style="height: 40px;">
-                                                                <h4 style="font-size: 15px; margin: 0;">
-                                                                    <a href="/product/${product.id}">
-                                                                        ${product.name}
-                                                                    </a>
-                                                                </h4>
+                                            <c:if test="${totalPages > 0}">
+                                                <c:forEach var="product" items="${products}">
+                                                    <div class="col-md-6 col-lg-4">
+                                                        <div class="rounded position-relative fruite-item">
+                                                            <div class="fruite-img">
+                                                                <img src="/images/product/${product.image}"
+                                                                    style="height: 220px;"
+                                                                    class="img-fluid w-100 rounded-top" alt="">
                                                             </div>
-                                                            <div style="height: 40px;">
-                                                                <p style="font-size: 13px; margin: 0;">
-                                                                    ${product.shortDesc}</p>
+                                                            <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                                                                style="top: 10px; left: 10px;">Laptop
                                                             </div>
                                                             <div
-                                                                class="d-flex  flex-lg-wrap justify-content-center flex-column">
-                                                                <p style="font-size: 15px; text-align: center; width: 100%;"
-                                                                    class="text-dark  fw-bold mb-3">
-                                                                    <fmt:formatNumber type="number"
-                                                                        value="${product.price}" />
-                                                                    đ
-                                                                </p>
-                                                                <form action="/add-product-to-cart/${product.id}"
-                                                                    method="post">
-                                                                    <input type="hidden" name="${_csrf.parameterName}"
-                                                                        value="${_csrf.token}" />
+                                                                class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                                                <div style="height: 40px;">
+                                                                    <h4 style="font-size: 15px; margin: 0;">
+                                                                        <a href="/product/${product.id}">
+                                                                            ${product.name}
+                                                                        </a>
+                                                                    </h4>
+                                                                </div>
+                                                                <div style="height: 40px;">
+                                                                    <p style="font-size: 13px; margin: 0;">
+                                                                        ${product.shortDesc}</p>
+                                                                </div>
+                                                                <div
+                                                                    class="d-flex  flex-lg-wrap justify-content-center flex-column">
+                                                                    <p style="font-size: 15px; text-align: center; width: 100%;"
+                                                                        class="text-dark  fw-bold mb-3">
+                                                                        <fmt:formatNumber type="number"
+                                                                            value="${product.price}" />
+                                                                        đ
+                                                                    </p>
+                                                                    <form action="/add-product-to-cart/${product.id}"
+                                                                        method="post">
+                                                                        <input type="hidden"
+                                                                            name="${_csrf.parameterName}"
+                                                                            value="${_csrf.token}" />
 
-                                                                    <button
-                                                                        class="mx-auto btn border border-secondary rounded-pill px-3 text-primary"><i
-                                                                            class="fa fa-shopping-bag me-2 text-primary"></i>
-                                                                        Add to cart
-                                                                    </button>
-                                                                </form>
+                                                                        <button
+                                                                            class="mx-auto btn border border-secondary rounded-pill px-3 text-primary"><i
+                                                                                class="fa fa-shopping-bag me-2 text-primary"></i>
+                                                                            Add to cart
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </c:forEach>
+                                                </c:forEach>
+                                            </c:if>
+
 
                                             <div class="pagination d-flex justify-content-center mt-5">
                                                 <li class="page-item">
