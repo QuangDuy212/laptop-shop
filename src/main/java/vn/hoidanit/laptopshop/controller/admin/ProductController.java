@@ -48,7 +48,7 @@ public class ProductController {
         Pageable pageable = PageRequest.of(page - 1, totalPages);
         // duoi db co 10 rows. count = 100 => chia limit = 10 pages offset = limit *
         // (page - 1)
-        Page<Product> products = this.productService.getAllProducts(pageable);
+        Page<Product> products = this.productService.getAllProducts(pageable, "");
         List<Product> listProducts = products.getContent();
 
         // data

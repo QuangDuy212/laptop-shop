@@ -51,7 +51,7 @@ public class HomePageController {
     @GetMapping("/")
     public String getHomePage(Model model) {
         Pageable pageable = PageRequest.of(0, 10);
-        Page<Product> products = this.productService.getAllProducts(pageable);
+        Page<Product> products = this.productService.getAllProducts(pageable, "");
         List<Product> listProducts = products.getContent();
         model.addAttribute("products", listProducts);
         return "client/homepage/show";
@@ -103,7 +103,9 @@ public class HomePageController {
     }
 
     @GetMapping("/products")
-    public String getAllProductPage(Model model, @RequestParam("page") Optional<String> pageOptional) {
+    public String getAllProductPage(Model model,
+            @RequestParam("page") Optional<String> pageOptional,
+            @RequestParam("name") Optional<String> nameOptional) {
         int page = 1;
         try {
             if (pageOptional.isPresent()) {
@@ -112,11 +114,13 @@ public class HomePageController {
         } catch (Exception e) {
             // TODO: handle exception
         }
+
+        String name = nameOptional.get();
         // page = 1 limit = 10
         Pageable pageable = PageRequest.of(page - 1, limitItemInPage);
         // duoi db co 10 rows. count = 100 => chia limit = 10 pages offset = limit *
         // (page - 1)
-        Page<Product> products = this.productService.getAllProducts(pageable);
+        Page<Product> products = this.productService.getAllProducts(pageable, name);
         List<Product> listProducts = products.getContent();
 
         // data
