@@ -16,50 +16,36 @@ public class ProductSpecs {
         return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(Product_.NAME), "%" + name + "%");
     }
 
-    public static Specification<Product> priceGreaterThanOrEqualTo(double minPrice) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.greaterThanOrEqualTo(root.get(Product_.PRICE),
-                minPrice);
+    // case 1
+    public static Specification<Product> minPrice(double price) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.ge(root.get(Product_.PRICE), price);
     }
 
-    public static Specification<Product> priceLessThanOrEqualTo(double maxPrice) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.lessThanOrEqualTo(root.get(Product_.PRICE),
-                maxPrice);
+    // case 2
+    public static Specification<Product> maxPrice(double price) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.le(root.get(Product_.PRICE), price);
     }
 
-    public static Specification<Product> priceBetween(double start, double end) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.between(root.get(Product_.PRICE),
-                start, end);
+    // case3
+    public static Specification<Product> matchFactory(String factory) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get(Product_.FACTORY), factory);
     }
 
-    public static Specification<Product> priceBetweenOr(List<Pair<Double, Double>> listMoney) {
-        return (root, query, criteriaBuilder) -> {
-            List<Predicate> predicates = new ArrayList<>();
-
-            if (listMoney != null) {
-                for (Pair<Double, Double> pair : listMoney) {
-                    predicates
-                            .add(criteriaBuilder.between(root.get(Product_.PRICE), pair.getFirst(), pair.getSecond()));
-                }
-            }
-            Predicate test = criteriaBuilder.or(predicates.toArray(new Predicate[0]));
-            return test;
-
-        };
+    // case4
+    public static Specification<Product> matchListFactory(List<String> factory) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.in(root.get(Product_.FACTORY)).value(factory);
     }
 
-    public static Specification<Product> targetLike(String name) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(Product_.TARGET),
-                "%" + name + "%");
+    // case5
+    public static Specification<Product> matchPrice(double min, double max) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.and(
+                criteriaBuilder.gt(root.get(Product_.PRICE), min),
+                criteriaBuilder.le(root.get(Product_.PRICE), max));
     }
 
-    public static Specification<Product> factoryLike(String name) {
-        return (root, query, criteriaBuilder) -> criteriaBuilder.like(root.get(Product_.FACTORY),
-                "%" + name + "%");
-    }
-
-    public static Specification<Product> factoryIn(List<String> name) {
-        return (root, query, criteriaBuilder) -> {
-            return root.get(Product_.FACTORY).in(name);
-        };
+    // case6
+    public static Specification<Product> matchMultiplePrice(double min, double max) {
+        return (root, query, criteriaBuilder) -> criteriaBuilder.between(
+                root.get(Product_.PRICE), min, max);
     }
 }
