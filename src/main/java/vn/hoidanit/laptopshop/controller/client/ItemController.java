@@ -17,10 +17,12 @@ import vn.hoidanit.laptopshop.domain.User;
 import vn.hoidanit.laptopshop.service.CartDetailService;
 import vn.hoidanit.laptopshop.service.CartService;
 import vn.hoidanit.laptopshop.service.ProductService;
+import vn.hoidanit.laptopshop.service.UploadService;
 import vn.hoidanit.laptopshop.service.UserService;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -31,13 +33,15 @@ public class ItemController {
     private final UserService userService;
     private final CartDetailService cartDetailService;
     private final CartService cartService;
+    private final UploadService uploadService;
 
     public ItemController(ProductService productService, UserService userService, CartDetailService cartDetailService,
-            CartService cartService) {
+            CartService cartService, UploadService uploadService) {
         this.productService = productService;
         this.userService = userService;
         this.cartDetailService = cartDetailService;
         this.cartService = cartService;
+        this.uploadService = uploadService;
     }
 
     @GetMapping("/product/{id}")
@@ -143,6 +147,39 @@ public class ItemController {
     @GetMapping("/thanks")
     public String getThanksPage(Model model) {
         return "client/cart/thanks";
+    }
+
+    @GetMapping("/account")
+    public String getAccountPage(Model model,
+            HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        long id = (long) session.getAttribute("id");
+        User user = this.userService.getUserById(id);
+        model.addAttribute("id", id);
+        model.addAttribute("newUser", user);
+        return "client/account/show";
+    }
+
+    @PostMapping("/account/update")
+    public String postUpdateUser(Model model, @ModelAttribute("newUser") User user,
+            @RequestParam("avatarAccountFile") MultipartFile file,
+            HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        User currentUser = this.userService.getUserById(user.getId());
+        if (currentUser != null) {
+            currentUser.setAddress(user.getAddress());
+            currentUser.setFullName(user.getFullName());
+            currentUser.setPhone(user.getPhone());
+            currentUser.setRole(this.userService.getRoleByName(user.getRole().getName()));
+            String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
+            if (avatar != "") {
+                currentUser.setAvatar(avatar);
+            }
+            this.userService.handleSaveUser(currentUser);
+            session.setAttribute("avatar", currentUser.getAvatar());
+            session.setAttribute("fullName", currentUser.getFullName());
+        }
+        return "redirect:/account";
     }
 
 }

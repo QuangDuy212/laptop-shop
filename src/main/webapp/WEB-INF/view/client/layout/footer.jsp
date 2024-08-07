@@ -7,29 +7,21 @@
                     <div class="row g-4">
                         <div class="col-lg-3">
                             <a href="#">
-                                <h1 class="text-primary mb-0">Fruitables</h1>
-                                <p class="text-secondary mb-0">Fresh products</p>
+                                <h1 class="text-primary mb-0">Laptopshop</h1>
+                                <p class="text-secondary mb-0">Perfect products</p>
                             </a>
                         </div>
                         <div class="col-lg-6">
-                            <div class="position-relative mx-auto">
-                                <input class="form-control border-0 w-100 py-3 px-4 rounded-pill" type="number"
-                                    placeholder="Your Email">
-                                <button type="submit"
-                                    class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white"
-                                    style="top: 0; right: 0;">Subscribe Now</button>
-                            </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="d-flex justify-content-end pt-3">
-                                <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i
-                                        class="fab fa-twitter"></i></a>
-                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i
+                                <a class="btn  btn-outline-secondary me-2 btn-md-square rounded-circle"
+                                    href="https://github.com/QuangDuy212"><i class="fab fa-github"></i></a>
+                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle"
+                                    href="https://www.facebook.com/profile.php?id=100079731466553"><i
                                         class="fab fa-facebook-f"></i></a>
-                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle" href=""><i
-                                        class="fab fa-youtube"></i></a>
-                                <a class="btn btn-outline-secondary btn-md-square rounded-circle" href=""><i
-                                        class="fab fa-linkedin-in"></i></a>
+                                <a class="btn btn-outline-secondary me-2 btn-md-square rounded-circle"
+                                    href="https://www.instagram.com/_quangduy204_/"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
@@ -69,9 +61,9 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="footer-item">
                             <h4 class="text-light mb-3">Contact</h4>
-                            <p>Address: 1429 Netus Rd, NY 48247</p>
-                            <p>Email: Example@gmail.com</p>
-                            <p>Phone: +0123 4567 8910</p>
+                            <p>Address: Me Linh, Dong Hung, Thai Binh</p>
+                            <p>Email: duy2k4ml1234@gmail.com</p>
+                            <p>Phone: +0398809872</p>
                             <p>Payment Accepted</p>
                             <img src="/client/img/payment.png" class="img-fluid" alt="">
                         </div>
@@ -93,8 +85,8 @@
                         <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
                         <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
                         <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                        Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a> Distributed
-                        By <a class="border-bottom" href="https://themewagon.com">ThemeWagon</a>
+                        Designed By <a class="border-bottom"
+                            href="https://www.facebook.com/profile.php?id=100079731466553">Quang Duy</a>
                     </div>
                 </div>
             </div>
