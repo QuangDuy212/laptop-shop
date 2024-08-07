@@ -35,6 +35,13 @@
 
                     <!-- Template Stylesheet -->
                     <link href="/client/css/style.css" rel="stylesheet">
+                    <style>
+                        .page-link.disabled {
+                            color: var(--bs-pagination-disabled-color);
+                            pointer-events: none;
+                            background-color: var(--bs-pagination-disabled-bg);
+                        }
+                    </style>
                 </head>
 
                 <body>
@@ -196,10 +203,9 @@
                                     </div>
                                     <div class="col-12 col-md-8 text-center">
                                         <div class="row g-4">
-                                            <c:if test="${totalPages == 0}">
-                                                <div>Không có sản phẩm nào</div>
+                                            <c:if test="${totalPages ==  0}">
+                                                <div>Không tìm thấy sản phẩm</div>
                                             </c:if>
-
                                             <c:forEach var="product" items="${products}">
                                                 <div class="col-md-6 col-lg-4">
                                                     <div class="rounded position-relative fruite-item">
@@ -213,17 +219,14 @@
                                                         </div>
                                                         <div
                                                             class="p-4 border border-secondary border-top-0 rounded-bottom">
-                                                            <div style="height: 40px;">
-                                                                <h4 style="font-size: 15px; margin: 0;">
-                                                                    <a href="/product/${product.id}">
-                                                                        ${product.name}
-                                                                    </a>
-                                                                </h4>
-                                                            </div>
-                                                            <div style="height: 40px;">
-                                                                <p style="font-size: 13px; margin: 0;">
-                                                                    ${product.shortDesc}</p>
-                                                            </div>
+                                                            <h4 style="font-size: 15px;">
+                                                                <a href="/product/${product.id}">
+                                                                    ${product.name}
+                                                                </a>
+
+                                                            </h4>
+                                                            <p style="font-size: 13px;">
+                                                                ${product.shortDesc}</p>
                                                             <div
                                                                 class="d-flex  flex-lg-wrap justify-content-center flex-column">
                                                                 <p style="font-size: 15px; text-align: center; width: 100%;"
@@ -248,6 +251,7 @@
                                                     </div>
                                                 </div>
                                             </c:forEach>
+
 
                                             <c:if test="${totalPages > 0}">
                                                 <div class="pagination d-flex justify-content-center mt-5">
