@@ -129,7 +129,9 @@ public class UserController {
             currentUser.setPhone(user.getPhone());
             currentUser.setRole(this.userService.getRoleByName(user.getRole().getName()));
             String avatar = this.uploadService.handleSaveUploadFile(file, "avatar");
-            currentUser.setAvatar(avatar);
+            if (avatar != "") {
+                currentUser.setAvatar(avatar);
+            }
             this.userService.handleSaveUser(currentUser);
         }
         return "redirect:/admin/user";
