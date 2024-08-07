@@ -82,7 +82,8 @@
                                             <div class="row g-4">
                                                 <c:forEach var="product" items="${products}">
                                                     <div class="col-md-6 col-lg-4 col-xl-3">
-                                                        <div class="rounded position-relative fruite-item">
+                                                        <div class="rounded position-relative fruite-item"
+                                                            style="overflow: hidden;">
                                                             <div class="fruite-img">
                                                                 <img src="/images/product/${product.image}"
                                                                     style="height: 220px; position: relative;"
@@ -122,13 +123,23 @@
                                                                             name="${_csrf.parameterName}"
                                                                             value="${_csrf.token}" /> -->
 
-                                                                    <button data-product-id="${product.id}"
-                                                                        disabled="${product.quantity == 1}"
-                                                                        class="btnAddToCartHomepage mx-auto btn border border-secondary rounded-pill px-3 text-primary">
-                                                                        <i
-                                                                            class="fa fa-shopping-bag me-2 text-primary"></i>
-                                                                        Add to cart
-                                                                    </button>
+
+                                                                    <c:if test="${product.quantity > 1}">
+                                                                        <button data-product-id="${product.id}"
+                                                                            class="btnAddToCartHomepage mx-auto btn border border-secondary rounded-pill px-3 text-primary">
+                                                                            <i
+                                                                                class="fa fa-shopping-bag me-2 text-primary"></i>
+                                                                            Add to cart
+                                                                        </button>
+                                                                    </c:if>
+                                                                    <c:if test="${product.quantity == 1}">
+                                                                        <button data-product-id="${product.id}" disabled
+                                                                            class="btnAddToCartHomepage mx-auto btn border border-secondary rounded-pill px-3 text-primary">
+                                                                            <i
+                                                                                class="fa fa-shopping-bag me-2 text-primary"></i>
+                                                                            Add to cart
+                                                                        </button>
+                                                                    </c:if>
                                                                     <!-- </form> -->
                                                                 </div>
                                                             </div>

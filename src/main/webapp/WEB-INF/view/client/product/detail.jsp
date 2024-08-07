@@ -72,11 +72,21 @@
                                 <div class="col-lg-8 col-xl-9">
                                     <div class="row g-4">
                                         <div class="col-lg-6">
-                                            <div class="border rounded">
+                                            <div class="border rounded" style="position: relative;">
                                                 <a href="#">
                                                     <img src="/images/product/${product.image}"
                                                         class="img-fluid rounded" alt="Image">
                                                 </a>
+                                                <c:if test="${product.quantity == 1}">
+                                                    <div style="position: absolute; 
+                                                                        top: 0; left: 0; height: 100%; width: 100%; 
+                                                                         background: rgba(0,0,0,0.4);; z-index: 10;
+                                                                         display: flex; justify-content: center; align-items: center;
+                                                                         color: #fff;
+                                                                         ">
+                                                        Hết hàng
+                                                    </div>
+                                                </c:if>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -122,11 +132,20 @@
 
                                             <input class="form-control d-none" type="text" name="quantity"
                                                 id="cartDetails0.quantity" value="1" />
-                                            <button data-product-id="${product.id}" disabled="${product.quantity == 1}"
-                                                class="btnAddToCartDetail btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                                                    class="fa fa-shopping-bag me-2 text-primary"></i>
-                                                Add to cart
-                                            </button>
+                                            <c:if test="${product.quantity == 1}">
+                                                <button data-product-id="${product.id}" disabled
+                                                    class="btnAddToCartDetail btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
+                                                        class="fa fa-shopping-bag me-2 text-primary"></i>
+                                                    Add to cart
+                                                </button>
+                                            </c:if>
+                                            <c:if test="${product.quantity != 1}">
+                                                <button data-product-id="${product.id}"
+                                                    class="btnAddToCartDetail btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
+                                                        class="fa fa-shopping-bag me-2 text-primary"></i>
+                                                    Add to cart
+                                                </button>
+                                            </c:if>
                                             <!-- </form> -->
 
                                         </div>
