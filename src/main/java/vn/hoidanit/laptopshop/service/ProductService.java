@@ -259,6 +259,16 @@ public class ProductService {
             List<CartDetail> cartDetails = cart.getCartDetails();
             if (cartDetails != null) {
                 for (CartDetail cd : cartDetails) {
+                    Optional<Product> pr = this.productRepository.findById(cd.getProduct().getId());
+                    if (pr.isPresent()) {
+                        long quantity = pr.get().getQuantity();
+                        long sold = pr.get().getSold();
+                        if (quantity >= cd.getQuantity()) {
+                            pr.get().setQuantity(quantity - cd.getQuantity());
+                            pr.get().setSold(sold + cd.getQuantity());
+                            this.productRepository.save(pr.get());
+                        }
+                    }
                     OrderDetail orderDetail = new OrderDetail();
                     orderDetail.setOrder(order);
                     orderDetail.setProduct(cd.getProduct());

@@ -85,8 +85,18 @@
                                                         <div class="rounded position-relative fruite-item">
                                                             <div class="fruite-img">
                                                                 <img src="/images/product/${product.image}"
-                                                                    style="height: 220px;"
+                                                                    style="height: 220px; position: relative;"
                                                                     class="img-fluid w-100 rounded-top" alt="">
+                                                                <c:if test="${product.quantity == 1}">
+                                                                    <div style="position: absolute; 
+                                                                        top: 0; left: 0; height: 220px; width: 100%; 
+                                                                         background: rgba(0,0,0,0.4);; z-index: 10;
+                                                                         display: flex; justify-content: center; align-items: center;
+                                                                         color: #fff;
+                                                                         ">
+                                                                        Hết hàng
+                                                                    </div>
+                                                                </c:if>
                                                             </div>
                                                             <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
                                                                 style="top: 10px; left: 10px;">Laptop</div>
@@ -113,6 +123,7 @@
                                                                             value="${_csrf.token}" /> -->
 
                                                                     <button data-product-id="${product.id}"
+                                                                        disabled="${product.quantity == 1}"
                                                                         class="btnAddToCartHomepage mx-auto btn border border-secondary rounded-pill px-3 text-primary">
                                                                         <i
                                                                             class="fa fa-shopping-bag me-2 text-primary"></i>

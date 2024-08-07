@@ -82,9 +82,10 @@
                                         <div class="col-lg-6">
                                             <h4 class="fw-bold mb-3"> ${product.name}</h4>
                                             <p class="mb-3">${product.factory}</p>
+                                            <p class="mb-3">Số lượng còn: ${product.quantity} cái</p>
+                                            <p class="mb-3">Đã bán: ${product.sold} cái</p>
                                             <h5 class="fw-bold mb-3">
                                                 <fmt:formatNumber type="number" value="${product.price}" /> đ
-
                                             </h5>
                                             <div class="d-flex mb-4">
                                                 <i class="fa fa-star text-secondary"></i>
@@ -105,7 +106,8 @@
                                                 </div>
                                                 <input type="text"
                                                     class="form-control form-control-sm text-center border-0" value="1"
-                                                    data-cart-detail-index="0">
+                                                    data-cart-detail-index="0" max="${product.quantity}"
+                                                    disabled="true">
                                                 <div class="input-group-btn">
                                                     <button class="btn btn-sm btn-plus rounded-circle bg-light border">
                                                         <i class="fa fa-plus"></i>
@@ -120,7 +122,7 @@
 
                                             <input class="form-control d-none" type="text" name="quantity"
                                                 id="cartDetails0.quantity" value="1" />
-                                            <button data-product-id="${product.id}"
+                                            <button data-product-id="${product.id}" disabled="${product.quantity == 1}"
                                                 class="btnAddToCartDetail btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
                                                     class="fa fa-shopping-bag me-2 text-primary"></i>
                                                 Add to cart
