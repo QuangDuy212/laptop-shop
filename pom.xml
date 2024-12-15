@@ -14,6 +14,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>laptopshop</name>
 	<description>Demo project for Spring Boot</description>
+	<!-- jar không hỗ trợ jsp :v -->
+	<packaging>war</packaging>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -64,16 +66,11 @@
 			<groupId>jakarta.servlet.jsp.jstl</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.glassfish.web</groupId>
 			<artifactId>jakarta.servlet.jsp.jstl</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -91,6 +88,12 @@
 			<version>6.4.1.Final</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jaxb</groupId>
+			<artifactId>jaxb-runtime</artifactId>
+			<version>4.0.4</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -99,7 +102,10 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
 		</plugins>
 	</build>
-
 </project>
